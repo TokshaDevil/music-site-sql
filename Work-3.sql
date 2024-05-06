@@ -40,14 +40,12 @@ join performens p2  on p.performens_id = p2.performens_id
 join performensgenres p3 on p2.performens_id = p3.performens_id
 join genres g on p3.genres_id = g.genres_id
 group by a.title
-having count(*) > 1
-;
+having count(*) > 1;
 
 --наименование треков, которые не входят в сборники;
 select t.title, ct.tracks_id  from tracks t
 full join compilationstracks ct on ct.tracks_id = t.tracks_id 
-where ct.tracks_id IS NULL
-;
+where ct.tracks_id IS NULL;
 
 
 --исполнителя(-ей), написавшего самый короткий по продолжительности трек (теоретически таких треков может быть несколько);
@@ -62,4 +60,4 @@ select a.title, count(*)   from albums a
 join tracks t on a.albums_id = t.albums_id 
 group by a.title
 having count(*) = (select count(*) from albums a 
-join tracks t on a.albums_id = t.albums_id group by a.title order by count(*) limit 1) ;
+join tracks t on a.albums_id = t.albums_id group by a.title order by count(*) limit 1);
